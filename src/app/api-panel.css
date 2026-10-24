@@ -12,6 +12,7 @@
   font-family: var(--mono);
   font-size: 0.8125rem;
   line-height: 1.75;
+  font-variation-settings: 'wdth' 87.5;
 }
 
 .request {

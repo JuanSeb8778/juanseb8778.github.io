@@ -135,7 +135,7 @@ export const CONTENT: Record<Lang, Content> = {
           title: 'Peliculiando',
           kind: 'Plataforma de películas con microservicios',
           summary:
-            'Seis servicios independientes para gestionar películas, usuarios, reseñas y listas personales. Un agente con Google Gemini responde preguntas sobre el catálogo usando el Model Context Protocol, y se conversa con él desde un chat en React.',
+            'Cuatro microservicios independientes gestionan películas, usuarios, reseñas y listas personales. Un agente con Google Gemini responde preguntas sobre el catálogo usando el Model Context Protocol, y se conversa con él desde un chat en React.',
           tech: ['Java 21', 'Spring Boot', 'Node.js', 'Python', 'React', 'Swagger'],
           services: services('es'),
           links: [{ label: 'Ver código', href: `${GITHUB}/proyectoPeliculasMicroservicios` }],
@@ -251,7 +251,7 @@ export const CONTENT: Record<Lang, Content> = {
           title: 'Peliculiando',
           kind: 'Movie platform built on microservices',
           summary:
-            'Six independent services to manage movies, users, reviews and personal watchlists. An agent powered by Google Gemini answers questions about the catalog through the Model Context Protocol, and you talk to it from a React chat.',
+            'Four independent microservices manage movies, users, reviews and personal watchlists. An agent powered by Google Gemini answers questions about the catalog through the Model Context Protocol, and you talk to it from a React chat.',
           tech: ['Java 21', 'Spring Boot', 'Node.js', 'Python', 'React', 'Swagger'],
           services: services('en'),
           links: [{ label: 'View code', href: `${GITHUB}/proyectoPeliculasMicroservicios` }],
