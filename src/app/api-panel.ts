@@ -20,8 +20,7 @@ interface Token {
         <span>{{ done() ? '200 OK' : '…' }}</span>
         <span class="time">{{ done() ? '38 ms' : '' }}</span>
       </div>
-      <pre class="body" aria-hidden="true"><code>@for (line of visibleLines(); track $index) {<span class="line">@for (tok of line; track $index) {<span [class]="tok.kind">{{ tok.text }}</span>}</span>
-}</code></pre>
+      <pre class="body" aria-hidden="true"><code>@for (line of visibleLines(); track $index) {<span class="line">@for (tok of line; track $index) {<span [class]="tok.kind">{{ tok.text }}</span>}</span>}</code></pre>
       <figcaption class="sr-only">{{ summary() }}</figcaption>
     </figure>
   `,

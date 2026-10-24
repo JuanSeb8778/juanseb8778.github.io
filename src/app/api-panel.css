@@ -82,7 +82,10 @@
 }
 
 .line {
-  white-space: pre;
+  display: block;
+  white-space: pre-wrap;
+  padding-left: 4ch;
+  text-indent: -4ch;
 }
 
 .key {
