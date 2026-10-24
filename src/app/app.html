@@ -1,0 +1,187 @@
+@let t = i18n.t();
+
+<a class="skip" href="#main">{{ i18n.lang() === 'es' ? 'Saltar al contenido' : 'Skip to content' }}</a>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="#inicio" (click)="closeMenu()">juan-sebastian</a>
+
+    <nav class="nav" [class.open]="menuOpen()" aria-label="Principal">
+      <a href="#sobre-mi" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.about }}</a>
+      <a href="#experiencia" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.work }}</a>
+      <a href="#proyectos" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.projects }}</a>
+      <a href="#tecnologias" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.stack }}</a>
+      <a href="#contacto" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.contact }}</a>
+    </nav>
+
+    <div class="top-actions">
+      <button type="button" class="lang" (click)="i18n.toggle()" [attr.aria-label]="t.langSwitch">
+        <span [class.on]="i18n.lang() === 'es'">es</span>
+        <span [class.on]="i18n.lang() === 'en'">en</span>
+      </button>
+      <button
+        type="button"
+        class="menu-btn"
+        (click)="menuOpen.set(!menuOpen())"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-label]="i18n.lang() === 'es' ? 'Abrir menú' : 'Open menu'"
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero wrap" id="inicio">
+    <div class="hero-text">
+      <p class="greeting">{{ t.hero.greeting }}</p>
+      <h1 class="name">
+        <span>Juan Sebastián</span>
+        <span>Ángel Ramírez</span>
+      </h1>
+      <p class="role">{{ t.hero.role }}</p>
+      <p class="pitch">{{ t.hero.pitch }}</p>
+      <div class="cta">
+        <a class="btn primary" href="#proyectos">{{ t.hero.primary }}</a>
+        <a class="btn ghost" href="#contacto">{{ t.hero.secondary }}</a>
+      </div>
+    </div>
+    <app-api-panel class="hero-panel" />
+  </section>
+
+  <section class="section wrap split" id="sobre-mi" aria-labelledby="h-about">
+    <h2 id="h-about">{{ t.about.title }}</h2>
+    <div class="about">
+      <div class="prose">
+        @for (p of t.about.body; track $index) {
+          <p>{{ p }}</p>
+        }
+      </div>
+      <dl class="facts">
+        @for (f of t.about.facts; track f.label) {
+          <div>
+            <dt>{{ f.label }}</dt>
+            <dd>{{ f.value }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section wrap split" id="experiencia" aria-labelledby="h-work">
+    <h2 id="h-work">{{ t.work.title }}</h2>
+    <ol class="timeline">
+      @for (item of t.work.items; track item.title) {
+        <li>
+          <p class="period">{{ item.period }}</p>
+          <div>
+            <h3>{{ item.title }}</h3>
+            <p class="place">{{ item.place }}</p>
+            <p class="detail">{{ item.detail }}</p>
+            @if (item.link) {
+              <a class="link" [href]="item.link.href" target="_blank" rel="noopener">{{ item.link.label }}</a>
+            }
+          </div>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <section class="section wrap" id="proyectos" aria-labelledby="h-projects">
+    <div class="section-head">
+      <h2 id="h-projects">{{ t.projects.title }}</h2>
+      <p class="intro">{{ t.projects.intro }}</p>
+    </div>
+
+    @let featured = t.projects.items[0];
+    <article class="featured">
+      <div class="featured-text">
+        <p class="kind">{{ featured.kind }}</p>
+        <h3>{{ featured.title }}</h3>
+        <p class="summary">{{ featured.summary }}</p>
+        <ul class="tags" [attr.aria-label]="t.stack.title">
+          @for (tag of featured.tech; track tag) {
+            <li>{{ tag }}</li>
+          }
+        </ul>
+        <div class="links">
+          @for (l of featured.links; track l.href) {
+            <a class="link" [href]="l.href" target="_blank" rel="noopener">{{ l.label }}</a>
+          }
+        </div>
+      </div>
+      <div class="services">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">{{ t.projects.serviceHead.name }}</th>
+              <th scope="col">{{ t.projects.serviceHead.tech }}</th>
+              <th scope="col" class="num">{{ t.projects.serviceHead.port }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (s of featured.services ?? []; track s.name) {
+              <tr>
+                <td>{{ s.name }}</td>
+                <td class="tech">{{ s.tech }}</td>
+                <td class="num">:{{ s.port }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <div class="more">
+      @for (p of t.projects.items.slice(1); track p.id) {
+        <article class="project">
+          <p class="kind">{{ p.kind }}</p>
+          <h3>{{ p.title }}</h3>
+          <p class="summary">{{ p.summary }}</p>
+          <ul class="tags">
+            @for (tag of p.tech; track tag) {
+              <li>{{ tag }}</li>
+            }
+          </ul>
+          <div class="links">
+            @for (l of p.links; track l.href) {
+              <a class="link" [href]="l.href" target="_blank" rel="noopener">{{ l.label }}</a>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="section wrap split" id="tecnologias" aria-labelledby="h-stack">
+    <h2 id="h-stack">{{ t.stack.title }}</h2>
+    <dl class="stack">
+      @for (g of t.stack.groups; track g.name) {
+        <div>
+          <dt>{{ g.name }}</dt>
+          <dd>{{ g.items.join(', ') }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="section wrap contact" id="contacto" aria-labelledby="h-contact">
+    <h2 id="h-contact">{{ t.contact.title }}</h2>
+    <p class="contact-body">{{ t.contact.body }}</p>
+    <a class="email" [href]="'mailto:' + links.email">{{ links.email }}</a>
+    <div class="contact-actions">
+      <button type="button" class="btn ghost" (click)="copyEmail()">
+        {{ copied() ? t.contact.copied : t.contact.copy }}
+      </button>
+      <a class="btn ghost" [href]="links.linkedin" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" [href]="links.github" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="sr-only" aria-live="polite">{{ copied() ? t.contact.copied : '' }}</p>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <p>© {{ year }} Juan Sebastián Ángel Ramírez</p>
+  <p>{{ t.footer }}</p>
+</footer>
