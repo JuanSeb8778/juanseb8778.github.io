@@ -121,15 +121,16 @@
 }
 
 .name {
-  font-size: clamp(2.125rem, 4.4vw, 3.375rem);
+  font-size: clamp(2rem, 4.4vw, 3.375rem);
   font-weight: 600;
-  font-variation-settings: 'wdth' 87.5;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-variation-settings: 'wdth' 78;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
 }
 
 .name span {
   display: block;
+  white-space: nowrap;
 }
 
 .name span + span {
