@@ -4,14 +4,14 @@
 
 <header class="top">
   <div class="wrap top-inner">
-    <a class="brand" href="#inicio" (click)="closeMenu()">juan-sebastian</a>
+    <a class="brand" href="#inicio" (click)="closeMenu()">Juan Sebastián</a>
 
     <nav class="nav" [class.open]="menuOpen()" aria-label="Principal">
-      <a href="#sobre-mi" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.about }}</a>
-      <a href="#experiencia" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.work }}</a>
-      <a href="#proyectos" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.projects }}</a>
-      <a href="#tecnologias" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.stack }}</a>
-      <a href="#contacto" (click)="closeMenu()"><span aria-hidden="true">/</span>{{ t.nav.contact }}</a>
+      <a href="#sobre-mi" (click)="closeMenu()">{{ t.nav.about }}</a>
+      <a href="#experiencia" (click)="closeMenu()">{{ t.nav.work }}</a>
+      <a href="#proyectos" (click)="closeMenu()">{{ t.nav.projects }}</a>
+      <a href="#tecnologias" (click)="closeMenu()">{{ t.nav.stack }}</a>
+      <a href="#contacto" (click)="closeMenu()">{{ t.nav.contact }}</a>
     </nav>
 
     <div class="top-actions">

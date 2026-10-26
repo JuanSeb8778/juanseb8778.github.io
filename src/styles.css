@@ -1,15 +1,20 @@
 :root {
-  /* Noche en el Valle de Cocora: verde profundo, palma de cera y café tostado */
-  --bg: #0f1b18;
-  --surface: #14231f;
-  --line: #233832;
-  --text: #e4ede7;
-  --muted: #8fa59b;
-  --palm: #8fd3b0;
-  --coffee: #f0b45a;
+  /* Azul de tinta: la paleta marina con menos saturación para descansar la vista */
+  --bg: #121a2c;
+  --surface: #19233a;
+  --line: #2a3652;
+  --text: #eceff5;
+  --muted: #a6b0c6;
+  --accent: #a9bbff;
+  --button: #c3d0ff;
+  --button-hover: #d8e0ff;
+  --ink: #011142;
+  --electric: #023be6;
+  --ok: #8ad1ae;
+  --warm: #e8c28e;
 
-  --mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sans: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Atkinson Hyperlegible Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --gutter: 16px;
   --max: 1120px;
@@ -35,7 +40,7 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-size: 1.0625rem;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -44,9 +49,10 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family: var(--mono);
-  font-weight: 500;
-  line-height: 1.15;
+  font-family: var(--sans);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -58,14 +64,14 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--coffee);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 ::selection {
-  background: var(--palm);
-  color: var(--bg);
+  background: var(--button);
+  color: var(--ink);
 }
 
 .sr-only {
