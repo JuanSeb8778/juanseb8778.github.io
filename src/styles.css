@@ -1,14 +1,21 @@
 :root {
-  /* Azul de tinta: la paleta marina con menos saturación para descansar la vista */
-  --bg: #121a2c;
-  --surface: #19233a;
-  --line: #2a3652;
-  --text: #eceff5;
-  --muted: #a6b0c6;
-  --accent: #a9bbff;
-  --button: #c3d0ff;
-  --button-hover: #d8e0ff;
-  --ink: #011142;
+  /* Medianoche: lienzo casi negro, superficies de vidrio esmerilado y texto azul hielo */
+  --bg: #070b18;
+  --glass: rgba(186, 214, 247, 0.035);
+  --frost: rgba(186, 214, 247, 0.06);
+  --frost-strong: rgba(186, 214, 247, 0.12);
+  --line: rgba(186, 215, 247, 0.12);
+  --heading: #e6f1fb;
+  --text: #d1e4fa;
+  --muted: #aab5ca;
+  --accent: #b6d9fc;
+  --button: #d8ecf8;
+  --button-hover: #ffffff;
+  --ink: #05060f;
+  --edge: inset 0 0 0 1px var(--line);
+  --glass-shadow: inset 0 1px 1px rgba(216, 236, 248, 0.2), inset 0 24px 48px rgba(168, 216, 245, 0.06),
+    0 16px 32px rgba(0, 0, 0, 0.3);
+  --hairline: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
   --electric: #023be6;
   --ok: #8ad1ae;
   --warm: #e8c28e;
@@ -43,6 +50,24 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Cuadrícula tenue y halo de luz en la parte superior, se desvanecen hacia los bordes */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 56rem;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 45% 40% at 50% 0%, rgba(124, 145, 182, 0.24), transparent 70%),
+    linear-gradient(rgba(186, 215, 247, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(186, 215, 247, 0.05) 1px, transparent 1px);
+  background-size: auto, 80px 80px, 80px 80px;
+  background-position: center top;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 0%, #000 35%, transparent 80%);
 }
 
 h1,
@@ -53,6 +78,7 @@ h3 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
+  color: var(--heading);
 }
 
 p {

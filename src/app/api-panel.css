@@ -5,9 +5,9 @@
 
 .panel {
   margin: 0;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 14px;
+  background: var(--glass);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
   overflow: hidden;
   font-family: var(--mono);
   font-size: 0.8125rem;
@@ -16,12 +16,41 @@
 
 .request {
   display: flex;
-  gap: 0.75rem;
-  align-items: baseline;
-  padding: 0.9rem 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.6rem;
+  align-items: center;
+  padding: 0.8rem 1.25rem;
   border-bottom: 1px solid var(--line);
-  overflow-x: auto;
-  white-space: nowrap;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.tab {
+  min-height: 2.25rem;
+  padding: 0 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: var(--edge);
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tab:hover {
+  background: var(--frost);
+  color: var(--heading);
+}
+
+.tab[aria-pressed='true'] {
+  background: var(--frost-strong);
+  color: var(--heading);
+  box-shadow: inset 0 0 0 1px rgba(186, 214, 247, 0.24);
 }
 
 .method {
@@ -36,10 +65,6 @@
 
 .path {
   color: var(--text);
-}
-
-.query {
-  color: var(--accent);
 }
 
 .status {

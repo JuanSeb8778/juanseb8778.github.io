@@ -7,9 +7,9 @@
     <a class="brand" href="#inicio" (click)="closeMenu()">Juan Sebastián</a>
 
     <nav class="nav" [class.open]="menuOpen()" aria-label="Principal">
-      <a href="#sobre-mi" (click)="closeMenu()">{{ t.nav.about }}</a>
-      <a href="#experiencia" (click)="closeMenu()">{{ t.nav.work }}</a>
       <a href="#proyectos" (click)="closeMenu()">{{ t.nav.projects }}</a>
+      <a href="#experiencia" (click)="closeMenu()">{{ t.nav.work }}</a>
+      <a href="#sobre-mi" (click)="closeMenu()">{{ t.nav.about }}</a>
       <a href="#tecnologias" (click)="closeMenu()">{{ t.nav.stack }}</a>
       <a href="#contacto" (click)="closeMenu()">{{ t.nav.contact }}</a>
     </nav>
@@ -50,43 +50,16 @@
     <app-api-panel class="hero-panel" />
   </section>
 
-  <section class="section wrap split" id="sobre-mi" aria-labelledby="h-about">
-    <h2 id="h-about">{{ t.about.title }}</h2>
-    <div class="about">
-      <div class="prose">
-        @for (p of t.about.body; track $index) {
-          <p>{{ p }}</p>
-        }
-      </div>
-      <dl class="facts">
-        @for (f of t.about.facts; track f.label) {
-          <div>
-            <dt>{{ f.label }}</dt>
-            <dd>{{ f.value }}</dd>
-          </div>
-        }
-      </dl>
-    </div>
-  </section>
-
-  <section class="section wrap split" id="experiencia" aria-labelledby="h-work">
-    <h2 id="h-work">{{ t.work.title }}</h2>
-    <ol class="timeline">
-      @for (item of t.work.items; track item.title) {
-        <li>
-          <p class="period">{{ item.period }}</p>
-          <div>
-            <h3>{{ item.title }}</h3>
-            <p class="place">{{ item.place }}</p>
-            <p class="detail">{{ item.detail }}</p>
-            @if (item.link) {
-              <a class="link" [href]="item.link.href" target="_blank" rel="noopener">{{ item.link.label }}</a>
-            }
-          </div>
-        </li>
+  <div class="wrap">
+    <dl class="facts">
+      @for (f of t.about.facts; track f.label) {
+        <div>
+          <dt>{{ f.label }}</dt>
+          <dd>{{ f.value }}</dd>
+        </div>
       }
-    </ol>
-  </section>
+    </dl>
+  </div>
 
   <section class="section wrap" id="proyectos" aria-labelledby="h-projects">
     <div class="section-head">
@@ -95,6 +68,7 @@
     </div>
 
     @let featured = t.projects.items[0];
+    @let svc = featured.services ?? [];
     <article class="featured">
       <div class="featured-text">
         <p class="kind">{{ featured.kind }}</p>
@@ -111,59 +85,86 @@
           }
         </div>
       </div>
-      <div class="services">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">{{ t.projects.serviceHead.name }}</th>
-              <th scope="col">{{ t.projects.serviceHead.tech }}</th>
-              <th scope="col" class="num">{{ t.projects.serviceHead.port }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (s of featured.services ?? []; track s.name) {
-              <tr>
-                <td>{{ s.name }}</td>
-                <td class="tech">{{ s.tech }}</td>
-                <td class="num">:{{ s.port }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+      <ol class="layers" [attr.aria-label]="t.projects.diagramLabel">
+        @for (layer of layers; track layer) {
+          <li class="layer" [class.is-service]="layer === 'service'">
+            <span class="layer-name">{{ t.projects.layers[layer] }}</span>
+            <ul class="nodes">
+              @for (s of svc; track s.name) {
+                @if (s.layer === layer) {
+                  <li class="node">
+                    <span class="node-name">{{ s.name }}</span>
+                    <span class="node-tech">{{ s.tech }}</span>
+                    <span class="node-port">:{{ s.port }}</span>
+                  </li>
+                }
+              }
+            </ul>
+          </li>
+        }
+      </ol>
     </article>
 
-    <div class="more">
+    <ul class="index">
       @for (p of t.projects.items.slice(1); track p.id) {
-        <article class="project">
-          <p class="kind">{{ p.kind }}</p>
+        <li class="row">
           <h3>{{ p.title }}</h3>
-          <p class="summary">{{ p.summary }}</p>
-          <ul class="tags">
-            @for (tag of p.tech; track tag) {
-              <li>{{ tag }}</li>
-            }
-          </ul>
-          <div class="links">
+          <div class="row-body">
+            <p class="kind">{{ p.kind }}</p>
+            <p class="summary">{{ p.summary }}</p>
+            <ul class="tags">
+              @for (tag of p.tech; track tag) {
+                <li>{{ tag }}</li>
+              }
+            </ul>
+          </div>
+          <div class="row-links">
             @for (l of p.links; track l.href) {
               <a class="link" [href]="l.href" target="_blank" rel="noopener">{{ l.label }}</a>
             }
           </div>
-        </article>
+        </li>
       }
-    </div>
+    </ul>
   </section>
 
-  <section class="section wrap split" id="tecnologias" aria-labelledby="h-stack">
-    <h2 id="h-stack">{{ t.stack.title }}</h2>
-    <dl class="stack">
-      @for (g of t.stack.groups; track g.name) {
-        <div>
-          <dt>{{ g.name }}</dt>
-          <dd>{{ g.items.join(', ') }}</dd>
-        </div>
+  <section class="section wrap" id="experiencia" aria-labelledby="h-work">
+    <h2 id="h-work">{{ t.work.title }}</h2>
+    <ol class="track">
+      @for (item of t.work.items; track item.title; let first = $first) {
+        <li [class.now]="first">
+          <p class="period">{{ item.period }}</p>
+          <h3>{{ item.title }}</h3>
+          <p class="place">{{ item.place }}</p>
+          <p class="detail">{{ item.detail }}</p>
+          @if (item.link) {
+            <a class="link" [href]="item.link.href" target="_blank" rel="noopener">{{ item.link.label }}</a>
+          }
+        </li>
       }
-    </dl>
+    </ol>
+  </section>
+
+  <section class="section wrap" id="sobre-mi" aria-labelledby="h-about">
+    <h2 id="h-about">{{ t.about.title }}</h2>
+    <div class="profile">
+      <div class="prose">
+        @for (p of t.about.body; track $index) {
+          <p>{{ p }}</p>
+        }
+      </div>
+      <div class="stack-block" id="tecnologias">
+        <h3>{{ t.stack.title }}</h3>
+        <dl class="stack">
+          @for (g of t.stack.groups; track g.name) {
+            <div>
+              <dt>{{ g.name }}</dt>
+              <dd>{{ g.items.join(', ') }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+    </div>
   </section>
 
   <section class="section wrap contact" id="contacto" aria-labelledby="h-contact">

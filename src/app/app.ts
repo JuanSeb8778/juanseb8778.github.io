@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ApiPanel } from './api-panel';
 import { LangService } from './lang.service';
-import { LINKS } from './content';
+import { LINKS, Layer } from './content';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,7 @@ import { LINKS } from './content';
 export class App {
   protected readonly i18n = inject(LangService);
   protected readonly links = LINKS;
+  protected readonly layers: Layer[] = ['client', 'agent', 'service'];
   protected readonly year = new Date().getFullYear();
   protected readonly copied = signal(false);
   protected readonly menuOpen = signal(false);

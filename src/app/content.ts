@@ -1,9 +1,13 @@
 export type Lang = 'es' | 'en';
 
+export type Layer = 'client' | 'agent' | 'service';
+export type Endpoint = 'profile' | 'stack' | 'contact';
+
 export interface Service {
   name: string;
   tech: string;
   port: string;
+  layer: Layer;
 }
 
 export interface Project {
@@ -37,13 +41,16 @@ export interface Content {
     secondary: string;
     api: Record<string, string | boolean | string[]>;
     panelLabel: string;
+    endpoints: Record<Endpoint, string>;
+    endpointsLabel: string;
   };
   about: { title: string; body: string[]; facts: { label: string; value: string }[] };
   work: { title: string; items: TimelineItem[] };
   projects: {
     title: string;
     intro: string;
-    serviceHead: { name: string; tech: string; port: string };
+    layers: Record<Layer, string>;
+    diagramLabel: string;
     items: Project[];
   };
   stack: { title: string; groups: { name: string; items: string[] }[] };
@@ -58,12 +65,12 @@ const LINKEDIN = 'https://www.linkedin.com/in/juan-sebastian-angel-ramirez-44225
 export const LINKS = { email: EMAIL, github: GITHUB, linkedin: LINKEDIN };
 
 const services = (lang: Lang): Service[] => [
-  { name: lang === 'es' ? 'Usuarios' : 'Users', tech: 'Spring Boot, MongoDB', port: '8080' },
-  { name: lang === 'es' ? 'Reseñas' : 'Reviews', tech: 'Spring Boot, JPA', port: '8081' },
-  { name: lang === 'es' ? 'Catálogo' : 'Catalog', tech: 'Node.js, Express', port: '3001' },
-  { name: lang === 'es' ? 'Listas' : 'Watchlists', tech: 'Node.js, Express', port: '3002' },
-  { name: lang === 'es' ? 'Agente IA' : 'AI agent', tech: 'FastAPI, Gemini, MCP', port: '8000' },
-  { name: 'Chat', tech: 'React', port: '3000' },
+  { name: 'Chat', tech: 'React', port: '3000', layer: 'client' },
+  { name: lang === 'es' ? 'Agente IA' : 'AI agent', tech: 'FastAPI, Gemini, MCP', port: '8000', layer: 'agent' },
+  { name: lang === 'es' ? 'Usuarios' : 'Users', tech: 'Spring Boot, MongoDB', port: '8080', layer: 'service' },
+  { name: lang === 'es' ? 'Reseñas' : 'Reviews', tech: 'Spring Boot, JPA', port: '8081', layer: 'service' },
+  { name: lang === 'es' ? 'Catálogo' : 'Catalog', tech: 'Node.js, Express', port: '3001', layer: 'service' },
+  { name: lang === 'es' ? 'Listas' : 'Watchlists', tech: 'Node.js, Express', port: '3002', layer: 'service' },
 ];
 
 export const CONTENT: Record<Lang, Content> = {
@@ -82,7 +89,9 @@ export const CONTENT: Record<Lang, Content> = {
         'Construyo aplicaciones de punta a punta: interfaces en Angular y Vue, y APIs en Java y Spring Boot. Estudio Ingeniería de Software y trabajo con clientes reales en Crear Solutions.',
       primary: 'Ver proyectos',
       secondary: 'Escríbeme',
-      panelLabel: 'Respuesta de la API con mi perfil',
+      panelLabel: 'Explorador de mi API',
+      endpoints: { profile: 'perfil', stack: 'stack', contact: 'contacto' },
+      endpointsLabel: 'Elige qué consultar',
       api: {
         nombre: 'Juan Sebastián Ángel Ramírez',
         rol: 'Desarrollador web full stack',
@@ -128,7 +137,8 @@ export const CONTENT: Record<Lang, Content> = {
     projects: {
       title: 'Proyectos',
       intro: 'Proyectos académicos hechos en equipo, de principio a fin.',
-      serviceHead: { name: 'Servicio', tech: 'Tecnología', port: 'Puerto' },
+      layers: { client: 'Interfaz', agent: 'Inteligencia', service: 'Microservicios' },
+      diagramLabel: 'Arquitectura de Peliculiando por capas',
       items: [
         {
           id: 'peliculiando',
@@ -198,7 +208,9 @@ export const CONTENT: Record<Lang, Content> = {
         'I build applications end to end: interfaces in Angular and Vue, and APIs in Java and Spring Boot. I study Software Engineering and work with real clients at Crear Solutions.',
       primary: 'See projects',
       secondary: 'Get in touch',
-      panelLabel: 'API response with my profile',
+      panelLabel: 'Explorer for my API',
+      endpoints: { profile: 'profile', stack: 'stack', contact: 'contact' },
+      endpointsLabel: 'Choose what to request',
       api: {
         name: 'Juan Sebastián Ángel Ramírez',
         role: 'Full stack web developer',
@@ -244,7 +256,8 @@ export const CONTENT: Record<Lang, Content> = {
     projects: {
       title: 'Projects',
       intro: 'Academic team projects, built from start to finish.',
-      serviceHead: { name: 'Service', tech: 'Technology', port: 'Port' },
+      layers: { client: 'Interface', agent: 'Intelligence', service: 'Microservices' },
+      diagramLabel: 'Peliculiando architecture by layer',
       items: [
         {
           id: 'peliculiando',
