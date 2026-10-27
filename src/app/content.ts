@@ -138,11 +138,11 @@ export const CONTENT: Record<Lang, Content> = {
       title: 'Proyectos',
       intro: 'Proyectos académicos hechos en equipo, de principio a fin.',
       layers: { client: 'Interfaz', agent: 'Inteligencia', service: 'Microservicios' },
-      diagramLabel: 'Arquitectura de Peliculiando por capas',
+      diagramLabel: 'Arquitectura de ReelHub por capas',
       items: [
         {
-          id: 'peliculiando',
-          title: 'Peliculiando',
+          id: 'reelhub',
+          title: 'ReelHub',
           kind: 'Plataforma de películas con microservicios',
           summary:
             'Cuatro microservicios independientes gestionan películas, usuarios, reseñas y listas personales. Un agente con Google Gemini responde preguntas sobre el catálogo usando el Model Context Protocol, y se conversa con él desde un chat en React.',
@@ -257,11 +257,11 @@ export const CONTENT: Record<Lang, Content> = {
       title: 'Projects',
       intro: 'Academic team projects, built from start to finish.',
       layers: { client: 'Interface', agent: 'Intelligence', service: 'Microservices' },
-      diagramLabel: 'Peliculiando architecture by layer',
+      diagramLabel: 'ReelHub architecture by layer',
       items: [
         {
-          id: 'peliculiando',
-          title: 'Peliculiando',
+          id: 'reelhub',
+          title: 'ReelHub',
           kind: 'Movie platform built on microservices',
           summary:
             'Four independent microservices manage movies, users, reviews and personal watchlists. An agent powered by Google Gemini answers questions about the catalog through the Model Context Protocol, and you talk to it from a React chat.',
